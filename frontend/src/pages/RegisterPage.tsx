@@ -67,8 +67,8 @@ const RegisterPage: React.FC = () => {
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-semibold tracking-[0.22em]">SMARTLEADS</p>
-              <p className="text-xs text-[#9CA3AF]">SmartLeads</p>
+              <p className="text-sm font-semibold tracking-[0.22em]">GIGFLOW</p>
+              <p className="text-xs text-[#9CA3AF]">GigFlow</p>
             </div>
           </Link>
 
@@ -78,7 +78,7 @@ const RegisterPage: React.FC = () => {
               Start with a clean CRM foundation.
             </h1>
             <p className="mt-5 max-w-lg text-base leading-7 text-[#9CA3AF]">
-              Create a secure SmartLeads workspace for your sales team, then invite
+              Create a secure GigFlow workspace for your sales team, then invite
               reps, import leads, and keep ownership clear from day one.
             </p>
 
@@ -110,8 +110,8 @@ const RegisterPage: React.FC = () => {
                 <Sparkles className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-semibold tracking-[0.22em]">SMARTLEADS</p>
-                <p className="text-xs text-[#9CA3AF]">SmartLeads</p>
+                <p className="text-sm font-semibold tracking-[0.22em]">GIGFLOW</p>
+                <p className="text-xs text-[#9CA3AF]">GigFlow</p>
               </div>
             </div>
 
@@ -122,7 +122,7 @@ const RegisterPage: React.FC = () => {
                 </div>
                 <h2 className="text-3xl font-semibold tracking-normal">Create workspace</h2>
                 <p className="mt-2 text-sm leading-6 text-[#9CA3AF]">
-                  Set up your SmartLeads account with secure team access.
+                  Set up your GigFlow account with secure team access.
                 </p>
               </div>
 

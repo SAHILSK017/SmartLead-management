@@ -1,0 +1,537 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GigFlow CRM API",
+    "description": "API documentation for the GigFlow CRM Lead Management Dashboard",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api",
+      "description": "Local Development Server"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "description": "Creates a new user account with role 'admin' or 'sales'. Returns the user details and a JWT token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input details"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login user",
+        "description": "Authenticates a user with email and password. Returns user profile details, a JWT token, and sets a secure httpOnly cookie.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSuccessResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "summary": "Get current user profile",
+        "description": "Retrieves public profile details of the currently authenticated user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPublicResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated"
+          }
+        }
+      }
+    },
+    "/leads": {
+      "get": {
+        "summary": "Get all leads",
+        "description": "Retrieves a paginated list of leads with optional filtering by status, source, sorting order, and search queries.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (defaults to 1)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page (defaults to 10)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by lead status",
+            "schema": {
+              "type": "string",
+              "enum": ["new", "contacted", "qualified", "lost"]
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Filter by lead source",
+            "schema": {
+              "type": "string",
+              "enum": ["website", "instagram", "referral"]
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search text matching name or email",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting order",
+            "schema": {
+              "type": "string",
+              "enum": ["latest", "oldest"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of leads matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedLeadsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new lead",
+        "description": "Creates a single lead record. Automatically registers the creator's ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLeadInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Lead created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleLeadResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input parameters"
+          },
+          "401": {
+            "description": "Not authenticated"
+          }
+        }
+      }
+    },
+    "/leads/{id}": {
+      "get": {
+        "summary": "Get details of a single lead",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Lead ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lead details retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleLeadResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lead not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing lead",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Lead ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLeadInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lead updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleLeadResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Lead not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a lead (Admin only)",
+        "description": "Removes a lead from the system. Requires Admin privilege role.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Lead ID to delete",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lead deleted successfully"
+          },
+          "403": {
+            "description": "Forbidden — user lacks admin privilege role"
+          },
+          "404": {
+            "description": "Lead not found"
+          }
+        }
+      }
+    },
+    "/leads/export": {
+      "get": {
+        "summary": "Export leads to CSV file",
+        "description": "Generates a downloadable CSV export of lead records matching target query filters.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CSV output file generated",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "RegisterInput": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jane Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "jane.doe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6,
+            "example": "password123"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["admin", "sales"],
+            "example": "sales"
+          }
+        }
+      },
+      "LoginInput": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "jane.doe@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          }
+        }
+      },
+      "AuthSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Login successful"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "_id": { "type": "string", "example": "60a8b9f1c7d2a8b9c1d2e3f4" },
+                  "name": { "type": "string", "example": "Jane Doe" },
+                  "email": { "type": "string", "example": "jane.doe@example.com" },
+                  "role": { "type": "string", "example": "sales" }
+                }
+              },
+              "token": {
+                "type": "string",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              }
+            }
+          }
+        }
+      },
+      "UserPublicResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "example": "60a8b9f1c7d2a8b9c1d2e3f4" },
+              "name": { "type": "string", "example": "Jane Doe" },
+              "email": { "type": "string", "example": "jane.doe@example.com" },
+              "role": { "type": "string", "example": "sales" }
+            }
+          }
+        }
+      },
+      "CreateLeadInput": {
+        "type": "object",
+        "required": ["name", "email", "source"],
+        "properties": {
+          "name": { "type": "string", "example": "John Smith" },
+          "email": { "type": "string", "format": "email", "example": "john.smith@example.com" },
+          "status": { "type": "string", "enum": ["new", "contacted", "qualified", "lost"], "example": "new" },
+          "source": { "type": "string", "enum": ["website", "instagram", "referral"], "example": "website" }
+        }
+      },
+      "UpdateLeadInput": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "John Smith Updated" },
+          "email": { "type": "string", "format": "email", "example": "john.smith@example.com" },
+          "status": { "type": "string", "enum": ["new", "contacted", "qualified", "lost"], "example": "contacted" },
+          "source": { "type": "string", "enum": ["website", "instagram", "referral"], "example": "referral" }
+        }
+      },
+      "SingleLeadResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "object",
+            "properties": {
+              "_id": { "type": "string", "example": "60a8b9f1c7d2a8b9c1d2e3f5" },
+              "name": { "type": "string", "example": "John Smith" },
+              "email": { "type": "string", "example": "john.smith@example.com" },
+              "status": { "type": "string", "example": "new" },
+              "source": { "type": "string", "example": "website" },
+              "createdBy": { "type": "string", "example": "60a8b9f1c7d2a8b9c1d2e3f4" },
+              "createdAt": { "type": "string", "format": "date-time", "example": "2026-05-19T22:15:00.000Z" },
+              "updatedAt": { "type": "string", "format": "date-time", "example": "2026-05-19T22:15:00.000Z" }
+            }
+          }
+        }
+      },
+      "PaginatedLeadsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": { "type": "string", "example": "60a8b9f1c7d2a8b9c1d2e3f5" },
+                "name": { "type": "string", "example": "John Smith" },
+                "email": { "type": "string", "example": "john.smith@example.com" },
+                "status": { "type": "string", "example": "new" },
+                "source": { "type": "string", "example": "website" },
+                "createdAt": { "type": "string", "format": "date-time", "example": "2026-05-19T22:15:00.000Z" }
+              }
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "page": { "type": "integer", "example": 1 },
+              "totalPages": { "type": "integer", "example": 2 },
+              "total": { "type": "integer", "example": 15 },
+              "limit": { "type": "integer", "example": 10 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

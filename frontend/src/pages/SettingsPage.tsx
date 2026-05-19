@@ -8,14 +8,14 @@ import { useAuthStore } from '../store/auth.store';
 
 const SettingsPage: React.FC = () => {
   const { user } = useAuthStore();
-  const [workspace, setWorkspace] = useState('SmartLeads Workspace');
+  const [workspace, setWorkspace] = useState('GigFlow Workspace');
   const [notify, setNotify] = useState(true);
   const [compact, setCompact] = useState(false);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     window.localStorage.setItem(
-      'smart-leads-settings',
+      'gigflow-settings',
       JSON.stringify({ workspace, notify, compact })
     );
     toast.success('Settings saved');

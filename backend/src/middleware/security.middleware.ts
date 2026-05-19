@@ -5,7 +5,7 @@ import { env } from '../config/env';
 
 const WINDOW_MS = 15 * 60 * 1000;
 const MAX_AUTH_ATTEMPTS = 20;
-const csrfCookieName = 'smartleads_csrf';
+const csrfCookieName = 'gigflow_csrf';
 const unsafeMethods = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 const authWritePaths = new Set(['/api/auth/login', '/api/auth/register']);
 

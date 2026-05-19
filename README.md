@@ -1,4 +1,4 @@
-# Smart Leads Dashboard
+# GigFlow Dashboard
 
 A full-stack MERN Lead Management Dashboard with modern architecture, role-based access control, advanced filtering, pagination, and a responsive premium UI.
 
@@ -35,7 +35,7 @@ A full-stack MERN Lead Management Dashboard with modern architecture, role-based
 ## Folder Structure
 
 ```
-smart-lead/
+gigflow/
 ├── backend/                  # Express API
 │   ├── src/
 │   │   ├── config/           # Environment & DB config
@@ -69,7 +69,7 @@ smart-lead/
 ### Backend (`backend/.env`)
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/smartleads
+MONGODB_URI=mongodb://localhost:27017/gigflow
 JWT_SECRET=your_super_secret_jwt_key_change_in_production
 JWT_EXPIRES_IN=7d
 NODE_ENV=development

@@ -27,7 +27,7 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: () => !!get().token && !!get().user,
     }),
     {
-      name: 'smart-leads-auth',
+      name: 'gigflow-auth',
       partialize: (state) =>
         state.rememberSession
           ? {

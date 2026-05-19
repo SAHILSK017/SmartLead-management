@@ -189,8 +189,8 @@ const LoginPage: React.FC = () => {
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-semibold tracking-[0.24em] text-white">SMARTLEADS</p>
-              <p className="text-xs text-[#9CA3AF]">SmartLeads</p>
+              <p className="text-sm font-semibold tracking-[0.24em] text-white">GIGFLOW</p>
+              <p className="text-xs text-[#9CA3AF]">GigFlow</p>
             </div>
           </div>
 
@@ -209,7 +209,7 @@ const LoginPage: React.FC = () => {
                 Manage leads without the busywork
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-[#9CA3AF]">
-                SmartLeads gives sales teams one clear place to qualify accounts,
+                GigFlow gives sales teams one clear place to qualify accounts,
                 protect follow-ups, and understand pipeline health.
               </p>
             </motion.div>
@@ -227,7 +227,7 @@ const LoginPage: React.FC = () => {
                 <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5">
                   <div className="mb-5 flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-semibold text-white">SmartLeads workspace</p>
+                      <p className="text-sm font-semibold text-white">GigFlow workspace</p>
                       <p className="text-xs text-[#9CA3AF]">Lead management overview</p>
                     </div>
                     <div className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-xs text-emerald-200">
@@ -296,8 +296,8 @@ const LoginPage: React.FC = () => {
                 <Sparkles className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-semibold tracking-[0.22em]">SMARTLEADS</p>
-                <p className="text-xs text-[#9CA3AF]">SmartLeads</p>
+                <p className="text-sm font-semibold tracking-[0.22em]">GIGFLOW</p>
+                <p className="text-xs text-[#9CA3AF]">GigFlow</p>
               </div>
             </div>
 
@@ -452,7 +452,7 @@ const LoginPage: React.FC = () => {
               </motion.form>
 
               <p className="mt-7 text-center text-sm text-[#9CA3AF]">
-                New to SmartLeads?{' '}
+                New to GigFlow?{' '}
                 <Link
                   to="/register"
                   className="font-semibold text-violet-200 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-violet-400"

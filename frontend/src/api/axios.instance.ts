@@ -23,7 +23,7 @@ apiClient.interceptors.request.use((config) => {
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
-  const csrfToken = readCookie('smartleads_csrf');
+  const csrfToken = readCookie('gigflow_csrf');
   if (csrfToken) {
     config.headers['X-CSRF-Token'] = csrfToken;
   }

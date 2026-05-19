@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mongodb:
     image: mongo:6
-    container_name: smartleads-mongo
+    container_name: gigflow-mongo
     ports:
       - "27017:27017"
     volumes:
@@ -14,12 +14,12 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: smartleads-backend
+    container_name: gigflow-backend
     ports:
       - "5000:5000"
     environment:
       - PORT=5000
-      - MONGODB_URI=mongodb://mongodb:27017/smartleads
+      - MONGODB_URI=mongodb://mongodb:27017/gigflow
       - JWT_SECRET=super_secret_jwt_key_for_docker
       - JWT_EXPIRES_IN=7d
       - NODE_ENV=production
@@ -34,7 +34,7 @@ services:
       dockerfile: Dockerfile
       args:
         - VITE_API_BASE_URL=http://localhost:5000/api
-    container_name: smartleads-frontend
+    container_name: gigflow-frontend
     ports:
       - "5173:80"
     depends_on:

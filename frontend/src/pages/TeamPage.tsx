@@ -13,8 +13,8 @@ const TeamPage: React.FC = () => {
       role: user?.role ?? 'sales',
       status: 'Active',
     },
-    { name: 'Pipeline Owner', email: 'owner@smartleads.local', role: 'admin', status: 'Pending' },
-    { name: 'Sales Rep', email: 'rep@smartleads.local', role: 'sales', status: 'Invited' },
+    { name: 'Pipeline Owner', email: 'owner@gigflow.local', role: 'admin', status: 'Pending' },
+    { name: 'Sales Rep', email: 'rep@gigflow.local', role: 'sales', status: 'Invited' },
   ];
 
   return (

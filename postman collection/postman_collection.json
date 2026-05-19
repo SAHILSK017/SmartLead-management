@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "4d1db423-7fa3-42e1-a0a1-77b5d1db9b2d",
+		"name": "GigFlow CRM API",
+		"description": "API collection for the GigFlow Lead Management CRM Dashboard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sahil\",\n  \"email\": \"sahil@gmail.com\",\n  \"password\": \"123456\",\n  \"role\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"sahil@gmail.com\",\n  \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leads",
+			"item": [
+				{
+					"name": "Get All Leads",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/leads?page=1&limit=10&status=qualified&source=referral&search=&sort=latest",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"leads"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "status",
+									"value": "qualified"
+								},
+								{
+									"key": "source",
+									"value": "referral"
+								},
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "sort",
+									"value": "latest"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Lead (Rahul Sharma)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/leads/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"leads",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6a0b70c8b7bc12983e6ad628"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Lead (Rahul Sharma)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.sharma@gmail.com\",\n  \"status\": \"new\",\n  \"source\": \"website\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/leads",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"leads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Lead (Aman Gupta)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Aman Gupta\",\n  \"status\": \"qualified\",\n  \"source\": \"referral\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/leads/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"leads",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6a0b70c8b7bc12983e6ad62a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Lead (Admin Only)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/leads/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"leads",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6a0b70c8b7bc12983e6ad62b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Export Leads to CSV",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/leads/export?status=qualified",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"leads",
+								"export"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "qualified"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "your_token_here",
+			"type": "string"
+		}
+	]
+}

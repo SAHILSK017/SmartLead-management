@@ -7,7 +7,7 @@ import { AppError } from '../utils/AppError';
 import { env } from '../config/env';
 
 const setAuthCookie = (res: Response, token: string): void => {
-  res.cookie('smartleads_access', token, {
+  res.cookie('gigflow_access', token, {
     httpOnly: true,
     sameSite: 'strict',
     secure: env.nodeEnv === 'production',

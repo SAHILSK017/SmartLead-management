@@ -37,7 +37,7 @@ if (env.nodeEnv === 'development') {
 
 // Health check
 app.get('/health', (_req, res) => {
-  res.json({ success: true, message: 'Smart Leads API is running' });
+  res.json({ success: true, message: 'GigFlow API is running' });
 });
 
 // API routes

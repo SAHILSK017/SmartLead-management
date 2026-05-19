@@ -1,7 +1,7 @@
 {
-  "name": "smart-leads-backend",
+  "name": "gigflow-backend",
   "version": "1.0.0",
-  "description": "Smart Lead Management Dashboard API",
+  "description": "GigFlow Lead Management Dashboard API",
   "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",

@@ -12,7 +12,7 @@ export const authenticate = (
 ): void => {
   const authHeader = req.headers.authorization;
   const cookies = parseCookies(req.headers.cookie);
-  const cookieToken = cookies['smartleads_access'];
+  const cookieToken = cookies['gigflow_access'];
 
   if ((!authHeader || !authHeader.startsWith('Bearer ')) && !cookieToken) {
     return next(new AppError('No token provided. Please log in.', 401));

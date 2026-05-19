@@ -89,7 +89,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
                   exit={{ opacity: 0, x: -10 }}
                   className="whitespace-nowrap font-bold text-lg text-slate-900 dark:text-white tracking-tight"
                 >
-                  Smart<span className="text-brand-600 dark:text-brand-400">Leads</span>
+                  Gig<span className="text-brand-600 dark:text-brand-400">Flow</span>
                 </motion.span>
               )}
             </AnimatePresence>
