@@ -18,3 +18,8 @@ yarn-error.log*
 
 # TypeScript build caches
 *.tsbuildinfo
+
+# Generated Vite Configs
+vite.config.js
+vite.config.d.ts
+

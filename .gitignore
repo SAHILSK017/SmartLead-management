@@ -54,6 +54,8 @@ ts_errors.txt
 
 # TypeScript cache
 *.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 
 # Docker and local storage volumes
 mongo-data/
